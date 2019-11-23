@@ -1,0 +1,22 @@
+version: '3.6'
+services:
+
+  client:
+      volumes:
+        - .:/app
+      build:
+        context: .
+        dockerfile: Dockerfile
+      container_name: website
+      ports:
+        - 80:80
+      hostname: website
+      command: python3 server.py
+      networks:
+        - server
+      restart: always
+
+
+networks:
+  server:
+    external: true
