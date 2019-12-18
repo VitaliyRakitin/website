@@ -20,4 +20,9 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - website
+      - website    
+    volumes:
+      - /etc/ssl/vitaliyrakitin.crt:/etc/ssl/vitaliyrakitin.crt
+      - /etc/ssl/vitaliyrakitin.key:/etc/ssl/vitaliyrakitin.key
+
+
