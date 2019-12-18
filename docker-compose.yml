@@ -2,24 +2,26 @@ version: '3.6'
 services:
 
   nginx:
-        build: ./services/nginx
-        ports:
-                - 1337:80
-        depends_on:
-                 - client
+      build: ./services/nginx
+      ports:
+        - 80:80
+      links:
+        - client
+
   client:
       volumes:
         - .:/app
       build:
         context: .
         dockerfile: Dockerfile
-      command: gunicorn --bind 0.0.0.0:9084 manage:app
+      command: gunicorn --bind 0.0.0.0:9084 server:app
       container_name: website
+      ports:
+        - 9084:9084
       expose:
          - 9084
 
       hostname: website
-      command: python3 server.py
       networks:
         - server
       restart: always
