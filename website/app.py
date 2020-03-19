@@ -23,7 +23,7 @@ def google():
 
 
 @app.route('/yandex_rasp', methods=['GET'])
-def google():
+def yandex_rasp():
     logger.info("GET YANDEX '{0}': {1}".format(path, request.args))
     from_station = request.args.get('from')
     to_station = request.args.get('to')
