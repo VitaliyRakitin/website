@@ -5,7 +5,7 @@ from log import logger
 from ya import find_ticket
 app = Flask(__name__)
 cli = FlaskGroup(app)
-
+SECRET_KEY = ""
 
 @app.route('/', methods=['GET'])
 def root():
@@ -24,6 +24,10 @@ def google():
 @app.route('/yandex_rasp', methods=['GET'])
 def yandex_rasp():
     logger.info("GET YANDEX: {0}".format(request.args))
+    key = request.args.get('key')
+    if key != SECRET_KEY:
+        return jsonify({"status": False})
+
     from_station = request.args.get('from')
     to_station = request.args.get('to')
     date = request.args.get('date')

@@ -87,13 +87,15 @@ def get_ticket(from_st, to_st, date):
                     "from_title": from_title,
                     "to_title": to_title,
                     "carrier": carrier,
-                    "cost": random.randint(20, 60) * 100
+                    "cost": random.randint(20, 60) * 100,
+                    "status": True
                     }
-    return {}
+    return {"status": False}
 
 
 def find_ticket(from_station, to_station, date):
     def get_station(city):
+        city = city[:-1]
         codes = get_codes()
         for item in codes:
             if city in item["title"] or any(city in airport for airport in item["airports"]):
@@ -107,7 +109,7 @@ def find_ticket(from_station, to_station, date):
 
     if from_st_ and to_st_:
         return get_ticket(from_st_, to_st_, date)
-    return {}
+    return {"status": False}
 
 
 if __name__ == "__main__":
