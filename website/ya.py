@@ -74,16 +74,16 @@ def get_ticket(from_st, to_st, date):
         total = tickets["pagination"]["total"]
         if total:
             best = tickets["segments"][random.randint(0, total-1)]
-            arrival = datetime.datetime.strptime(best["arrival"], "%Y-%m-%dT%H:%M:%S+03:00")
-            departure = datetime.datetime.strptime(best["departure"], "%Y-%m-%dT%H:%M:%S+03:00")
+            arrival = datetime.datetime.strptime(best["arrival"][:-6], "%Y-%m-%dT%H:%M:%S")
+            departure = datetime.datetime.strptime(best["departure"][:-6], "%Y-%m-%dT%H:%M:%S")
             delta = arrival - departure
             from_title = best["from"]["title"]
             to_title = best["to"]["title"]
             carrier = best["thread"]["carrier"]["title"]
             return {"departure_hour": departure.hour,
                     "departure_minute": departure.minute,
-                    "flight_hour": delta.seconds//3600,
-                    "flight_minute":(delta.seconds % 3600)//60,
+                    # "flight_hour": delta.seconds//3600,
+                    # "flight_minute":(delta.seconds % 3600)//60,
                     "from_title": from_title,
                     "to_title": to_title,
                     "carrier": carrier,
