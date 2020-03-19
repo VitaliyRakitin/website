@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask import render_template
 from flask.cli import FlaskGroup
+from log import logger
 from ya import find_ticket
 app = Flask(__name__)
 cli = FlaskGroup(app)
