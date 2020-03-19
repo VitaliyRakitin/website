@@ -9,7 +9,6 @@ cli = FlaskGroup(app)
 
 @app.route('/', methods=['GET'])
 def root():
-    print("In root")
     link = "https://vk.com/vitaliyrakitin"
     text = "Заходите в гости"
     return render_template('index.html', link=link, text=text)
@@ -17,7 +16,6 @@ def root():
 
 @app.route('/google', methods=['GET'])
 def google():
-    print("In hay")
     link = "https://google.com/"
     text = "Заходите в гугл"
     return render_template('index.html', link=link, text=text)
@@ -25,7 +23,7 @@ def google():
 
 @app.route('/yandex_rasp', methods=['GET'])
 def yandex_rasp():
-    logger.info("GET YANDEX '{0}': {1}".format(path, request.args))
+    logger.info("GET YANDEX: {1}".format(request.args))
     from_station = request.args.get('from')
     to_station = request.args.get('to')
     date = request.args.get('date')
