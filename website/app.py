@@ -31,7 +31,8 @@ def yandex_rasp():
     from_station = request.args.get('from')
     to_station = request.args.get('to')
     date = request.args.get('date')
-    result = find_ticket(from_station, to_station, date)
+    amount = request.args.get('amount')
+    result = find_ticket(from_station, to_station, date, amount)
     logger.info("RESULT: {0}".format(result))
     return jsonify(result)
 
