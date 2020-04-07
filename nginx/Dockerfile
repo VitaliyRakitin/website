@@ -7,6 +7,6 @@ RUN rm /etc/nginx/conf.d/default.conf
 COPY project.conf /etc/nginx/conf.d/
 
 COPY project.conf /etc/nginx/conf.d/
-COPY website /var/www/chat
+COPY chat /var/www/chat
 
 COPY ./static ./static

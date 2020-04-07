@@ -3,7 +3,7 @@ version: '3'
 services:
 
   website:
-    container_name: website
+    container_name: chat
     restart: always
     build: ./website
     ports:
