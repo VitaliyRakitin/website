@@ -18,10 +18,10 @@ services:
     restart: always
     build: ./nginx
     ports:
-      - "443:443"
+      - "80:80"
     depends_on:
       - website
-    volumes:
-      - /etc/ssl/vitaliyrakitin.crt:/etc/ssl/vitaliyrakitin.crt
-      - /etc/ssl/vitaliyrakitin.key:/etc/ssl/vitaliyrakitin.key
+#    volumes:
+#      - /etc/ssl/vitaliyrakitin.crt:/etc/ssl/vitaliyrakitin.crt
+#      - /etc/ssl/vitaliyrakitin.key:/etc/ssl/vitaliyrakitin.key
 

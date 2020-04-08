@@ -7,7 +7,7 @@ from requests import post
 
 app = Flask(__name__)
 cli = FlaskGroup(app)
-SECRET_KEY = ""
+SECRET_KEY = "123"
 
 
 @app.route('/', methods=['GET'])
@@ -19,14 +19,22 @@ def root():
 
 @app.route('/proxy', methods=['POST'])
 def proxy_post():
-    logger.info("PROXY POST: {0}".format(request.args))
-    key = request.args.get('key')
+    headers = request.headers
+    key = headers["X-ProxyServer-Key"]
+    url = headers["X-Webhook-URL"]
+    logger.info("PROXY POST: {0} {1}".format(key, url))
+
     if key != SECRET_KEY:
         return jsonify({"status": False})
 
-    url = request.args.get('url')
-    result = post(url, request.data, request.headers).json()
-    logger.info("PROXY result: {0}".format(result))
+    # url = request.args.get('url')
+    try:
+        result = post(url, request.data, request.headers).json()
+        logger.info("PROXY result: {0}".format(result))
+    except Exception as exception:
+        result = {"status": False}
+        logger.error("PROXY ERROR: {0}".format(exception))
+
     return jsonify(result)
 
 
