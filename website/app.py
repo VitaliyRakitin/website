@@ -7,6 +7,7 @@ from requests import post
 
 app = Flask(__name__)
 cli = FlaskGroup(app)
+URL = ""
 SECRET_KEY = "123"
 
 
@@ -30,6 +31,26 @@ def proxy_post():
     # url = request.args.get('url')
     try:
         result = post(url, request.data, request.headers).json()
+        logger.info("PROXY result: {0}".format(result))
+    except Exception as exception:
+        result = {"status": False}
+        logger.error("PROXY ERROR: {0}".format(exception))
+
+    return jsonify(result)
+
+
+@app.route('/api', methods=['POST'])
+def proxy_api():
+    headers = request.headers
+    key = headers["X-ProxyServer-Key"]
+    logger.info("API PROXY POST: {0} {1}".format(key, URL))
+
+    if key != SECRET_KEY:
+        return jsonify({"status": False})
+
+    # url = request.args.get('url')
+    try:
+        result = post(URL, request.data, request.headers).json()
         logger.info("PROXY result: {0}".format(result))
     except Exception as exception:
         result = {"status": False}
